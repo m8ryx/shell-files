@@ -1,0 +1,251 @@
+# peco
+# the_silver_searcher (ag)
+
+    if shell_is_linux; then
+        export PATH=/cust/tools/bin/:/cust/soe/opt/python/2.7.3/bin:/cust/soe/opt/vim/7.3/bin/:$PATH
+        alias vi="vim"
+    fi
+
+# OS-neutral stuff
+http_proxy=http://connsvr.nike.com:8080
+https_proxy=http://connsvr.nike.com:8080
+
+IAMHERE=`whereami 2>/dev/null`
+if [ $? -ne 0 ]; then
+    IAMHERE='un'
+fi
+export IAMHERE
+
+PATH=$PATH:$HOME/bin
+export PATH
+
+set -o vi
+
+shopt -s histappend
+export HISTCONTROL=erasedups
+export HISTSIZE=100000
+export HISTIGNORE="&:l:la:[bf]g*:exit:clear"
+export CLICOLOR=1
+export FTP_PASSIVE=1
+export DISPLAY=:0.0
+export CVSIGNORE='*.swp'
+export SCREENDIR=~/.screen/
+
+alias 2vim='vim -R -'
+
+alias dusk='du -sk *|sort -nr'
+alias dush='du -skh *|sort -nr'
+
+alias vup='vagrant up'
+alias vdown='vagrant halt'
+alias vssh='vagrant ssh'
+alias vnike='cd ~/Vagrant/nike1'
+
+# git
+export EMAIL=rick@beerdrinker.org
+alias gits='git status'
+alias gpom='git push origin master'
+
+alias cl='clear;ls -lAh'
+
+# gpg
+GPG_TTY=`tty`
+export GPG_TTY
+
+# rails
+alias gll='gem list --local'
+alias ss='script/server'
+
+alias l='ls -lAh'
+alias lt='ls -lAhrt'
+alias lS='ls -lAhrS'
+alias la='ls -lAh'
+alias ll='ls -lh'
+
+alias lagos='ls -laAFhoS'
+alias cpan='sudo perl -MCPAN -e shell'
+
+export PERLDOC_PAGER='less -isrf'
+
+# ack
+export ACK_COLOR_MATCH="bold red"
+
+PYV=`python -c "import sys;t='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(t)";` > /dev/null 2>&1
+modern_python=$?
+
+
+function _update_ps1() {
+if [ $modern_python -eq '0' ]; then
+    export PS1="$(~/rick_dotfiles/powerline-shell.py $? 2> /dev/null)"
+else
+    export PS1="[\u@\h \W]\$"
+fi
+    }
+
+    export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+
+
+    # version control
+    alias sdv='svn diff | vim -R -'
+    alias svs="date;svn status | sort | ack -v '^X ' | ack '^ ?. '"
+    alias svu="date;svn up"
+    alias svq="date;svn status | ack '\?'"
+    alias svc='date;svn status | ack ^C'
+    alias svsu="date;svn -u status | ack '^ ?. '"
+    alias svnup='date;svn up'
+
+    #   functional aliasii
+    alias bpe='vim ~/.bashrc'
+    alias bpl='source ~/.bashrc'
+    alias bh='vim ~/.bash_history'
+
+    alias cdl=_cd_ls
+    alias mkcd=_mkdir_cd
+    alias grep2vim=_grep2vim
+    alias grepsvn=_grepsvn
+    alias grepecs=_grepecs
+    alias tal=_tail_apache_log
+
+    _cd_ls() { cd $*; ls -lAh; }
+    _mkdir_cd() { mkdir $*; cd $*; }
+    _grep2vim() { grep $* *| vim -R -; }
+    _grepsvn() { grep -rI $* * | grep -v "\.svn"; }
+    _grepecs() { grep -rI $* t/5* lib/eleMentalClinic/ECS/*.pm lib/eleMentalClinic/Financial/*.pm | grep -v "\.svn"; }
+    _tail_apache_log() { tail -f /var/log/httpd/error/$*; }
+
+    # cdd
+    alias cd1='cd ../'
+    alias cd2='cd ../../'
+    alias cd3='cd ../../../'
+    alias cd4='cd ../../../../'
+    alias cd5='cd ../../../../../'
+    alias cd6='cd ../../../../../../'
+    alias cd7='cd ../../../../../../../'
+    alias cd8='cd ../../../../../../../../'
+    alias cd9='cd ../../../../../../../../../'
+
+    if shell_is_osx; then
+        alias python="python3"
+
+        if [ "$PS1" ]; then
+            #     PATH=~/bin:/opt/local/bin:/sw/bin:/sw/sbin:/usr/local/bin:"${PATH}":/usr/local/mysql/bin
+            PATH=~/bin:/www/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/opt/local/sbin:"${PATH}":/opt/local/lib/mysql5/bin:/opt/local/lib/postgresql83/bin
+            export MANPATH=/usr/local/man:/opt/local/share/man:/usr/share/man:/usr/local/mysql/man:/usr/X11R6/man:/usr/local/man
+
+            export EDITOR=/usr/bin/vim
+            export RANDFILE=/dev/random
+            export PERL5_USERLIB=/Users/rrezin/Library/Perl
+
+            #    export TEST_SERVER=rancid
+            #    export TEST_SERVER_WWW_ROOT=/var/www/rancid.raan.net-ssl/
+            #    export TEST_SERVER_PERL_LIB=/usr/local/lib/perl/
+
+            export HTTPD_BIN_PATH=/opt/local/apache2/bin/httpd
+            export HTTPD_MODULE_PATH=/opt/local/apache2/modules
+            export HTTPD_PORT=8080
+
+            [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            bind -m vi-insert "\C-l":clear-screen
+
+            alias screennp='screen -c ~/.screenrc_newproject'
+            alias Pwd='pwd -P'
+
+            alias vim6=/usr/bin/vim
+
+            alias lists='cd ~/Documents/lists;vim -S .session -S .vimrc'
+
+            alias vimrc='vim ~/.vimrc'
+            alias v=vim
+            alias vi=vim
+            #    alias htconf='vim /etc/httpd/users/soh.conf'
+
+            alias fps='ps axw | grep'
+            alias top='top -o cpu'
+            alias val='vim /var/log/httpd/error_log'
+
+            alias cvsUp='cvs update -dPA'
+
+            alias pg='ping google.com'
+            alias tg='traceroute google.com'
+
+            # perl stuff
+            alias pmvim=_pm_vim
+            alias pmless=_pm_less
+            alias pmcd=_pm_cd
+            _pm_vim() { vim -R `perldoc -l $*`; }
+            _pm_less() { less `perldoc -l $*`; }
+            _pm_cd() {
+                PERL='print "hello\n\n"';
+                perl -e 'eval shift' $PERL;
+                cd `perl -e '$_=shift;$_=\`perldoc -l $_\`;s/(\w+\.pm)$//;print' $*`;
+                ls -lAh `perl -e '$_=shift;$_=\`perldoc -l $_\`;s/(\w+\.pm)$//;print $1' $*`;
+            }
+
+            export PROVE_SWITCHES="-l lib"
+
+            # mac stuff
+            alias prefs='open ~/Library/Preferences/.GlobalPreferences.plist'
+            alias battinfo='ioreg -l -w 0 | grep IOBatteryInfo'
+
+            source /Users/rrezin/Dev/git-completion/git-completion.bash
+
+            export CVS_RSH=ssh
+
+            export PYTHONPATH=/Library/Python/2.3/site-packages/
+            alias olim=/System/Library/Frameworks/Python.framework/Versions/2.3/bin/offlineimap
+
+            # projects
+            #    alias P='make -f ~/bin/Projects $1 $2'
+            #    alias eP='vim ~/bin/Projects'
+
+            alias pj='make -f .Project $1 $2'
+
+            # pbcopy, needed for screen
+            # pbcopy_server.sh &
+
+            set grepprg=ag\ -a
+
+            if [ -f /opt/local/etc/bash_completion ]; then
+                . /opt/local/etc/bash_completion
+            fi
+
+            if [ -f $(brew --prefix)/etc/bash_completion ]; then
+                . $(brew --prefix)/etc/bash_completion
+            fi
+        fi
+    fi
+
+
+
+    # rickstuff
+function setjdk() {
+  if [ $# -ne 0 ]; then
+    removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
+    if [ -n "${JAVA_HOME+x}" ]; then
+       removeFromPath $JAVA_HOME
+    fi
+    export JAVA_HOME=`/usr/libexec/java_home -v $@`
+    export PATH=$JAVA_HOME/bin:$PATH
+  fi
+}
+function removeFromPath() {
+    export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+}
+setjdk 1.8
+
+cisco(){
+    if [[ $@ == "enable" ]]; 
+          then command sudo /opt/cisco/anyconnect/bin/acwebsecagent -enablesvc;
+          else command sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity;
+    fi; 
+            }
+            # now run it
+#            cisco disable
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+
+
