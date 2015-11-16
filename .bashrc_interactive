@@ -30,6 +30,7 @@ export FTP_PASSIVE=1
 export DISPLAY=:0.0
 export CVSIGNORE='*.swp'
 export SCREENDIR=~/.screen/
+export TERM=xterm-256color
 
 alias 2vim='vim -R -'
 
@@ -125,6 +126,7 @@ fi
     alias cd9='cd ../../../../../../../../../'
 
     if shell_is_osx; then
+      echo hello
         alias python="python3"
 
         if [ "$PS1" ]; then
