@@ -192,7 +192,7 @@ fi
             alias prefs='open ~/Library/Preferences/.GlobalPreferences.plist'
             alias battinfo='ioreg -l -w 0 | grep IOBatteryInfo'
 
-            source /Users/rrezin/Dev/git-completion/git-completion.bash
+            source ${HOME}/Dev/git-completion/git-completion.bash
 
             export CVS_RSH=ssh
 
