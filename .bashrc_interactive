@@ -126,7 +126,6 @@ fi
     alias cd9='cd ../../../../../../../../../'
 
     if shell_is_osx; then
-      echo hello
         alias python="python3"
 
         if [ "$PS1" ]; then
